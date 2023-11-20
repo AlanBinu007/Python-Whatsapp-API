@@ -10,12 +10,21 @@ from datetime import datetime
 import pyodbc
 from time import sleep
 import sys
+import os
 
 current_date = datetime.now().date().strftime("%d-%m-%Y")
 
-# file_name = f"Whatsapp Message Status_{current_date}.txt"
-# file = open(file_name, 'a')
-# sys.stdout = file
+custom_folder = 'Whatsapp Message Status/'
+
+if not os.path.exists(custom_folder):
+    os.makedirs(custom_folder)
+
+file_name = f"Whatsapp Message Status_{current_date}.txt"
+
+file_path = os.path.join(custom_folder, file_name)
+
+file = open(file_path, 'w')
+sys.stdout = file
 
 total = 0
 success = 0
