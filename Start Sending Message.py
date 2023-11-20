@@ -86,12 +86,11 @@ def send_whatsapp_messages(users):
 
         max_attempts = 3
         attempt_count = 1
-
+        print(f"{current_datetime} : +91{phone} Start to send Message")
         while attempt_count <= max_attempts:
             try:
                 link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
                 driver.get(link2)
-                print(f"{current_datetime} : +91{phone} Start to send Message")
                 print(f"{current_datetime} : +91{phone} Trying {attempt_count} out of {max_attempts} to Send Message")
                 click_btn = WebDriverWait(driver, 30).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
