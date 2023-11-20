@@ -25,3 +25,132 @@ Failed  : 1
 -----------------
 
 Application Closed
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+Login failed: Message: 
+Stacktrace:
+	GetHandleVerifier [0x006672A3+45731]
+	(No symbol) [0x005F2D51]
+	(No symbol) [0x004E880D]
+	(No symbol) [0x0051B940]
+	(No symbol) [0x0051BE0B]
+	(No symbol) [0x0054D1F2]
+	(No symbol) [0x00538024]
+	(No symbol) [0x0054B7A2]
+	(No symbol) [0x00537DD6]
+	(No symbol) [0x005131F6]
+	(No symbol) [0x0051439D]
+	GetHandleVerifier [0x00970716+3229462]
+	GetHandleVerifier [0x009B84C8+3523784]
+	GetHandleVerifier [0x009B214C+3498316]
+	GetHandleVerifier [0x006F1680+611968]
+	(No symbol) [0x005FCCCC]
+	(No symbol) [0x005F8DF8]
+	(No symbol) [0x005F8F1D]
+	(No symbol) [0x005EB2C7]
+	BaseThreadInitThunk [0x76D27BA9+25]
+	RtlInitializeExceptionChain [0x77A8BD2B+107]
+	RtlClearBits [0x77A8BCAF+191]
+
+login failed, Please try start the application again...
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+Login failed: Message: no such window: target window already closed
+from unknown error: web view not found
+  (Session info: chrome=119.0.6045.160)
+Stacktrace:
+	GetHandleVerifier [0x006672A3+45731]
+	(No symbol) [0x005F2D51]
+	(No symbol) [0x004E880D]
+	(No symbol) [0x004CF75E]
+	(No symbol) [0x0053C11B]
+	(No symbol) [0x0054B2D3]
+	(No symbol) [0x00537DD6]
+	(No symbol) [0x005131F6]
+	(No symbol) [0x0051439D]
+	GetHandleVerifier [0x00970716+3229462]
+	GetHandleVerifier [0x009B84C8+3523784]
+	GetHandleVerifier [0x009B214C+3498316]
+	GetHandleVerifier [0x006F1680+611968]
+	(No symbol) [0x005FCCCC]
+	(No symbol) [0x005F8DF8]
+	(No symbol) [0x005F8F1D]
+	(No symbol) [0x005EB2C7]
+	BaseThreadInitThunk [0x76D27BA9+25]
+	RtlInitializeExceptionChain [0x77A8BD2B+107]
+	RtlClearBits [0x77A8BCAF+191]
+
+login failed, Please try start the application again...
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+Login failed: Message: 
+Stacktrace:
+	GetHandleVerifier [0x006672A3+45731]
+	(No symbol) [0x005F2D51]
+	(No symbol) [0x004E880D]
+	(No symbol) [0x0051B940]
+	(No symbol) [0x0051BE0B]
+	(No symbol) [0x0054D1F2]
+	(No symbol) [0x00538024]
+	(No symbol) [0x0054B7A2]
+	(No symbol) [0x00537DD6]
+	(No symbol) [0x005131F6]
+	(No symbol) [0x0051439D]
+	GetHandleVerifier [0x00970716+3229462]
+	GetHandleVerifier [0x009B84C8+3523784]
+	GetHandleVerifier [0x009B214C+3498316]
+	GetHandleVerifier [0x006F1680+611968]
+	(No symbol) [0x005FCCCC]
+	(No symbol) [0x005F8DF8]
+	(No symbol) [0x005F8F1D]
+	(No symbol) [0x005EB2C7]
+	BaseThreadInitThunk [0x76D27BA9+25]
+	RtlInitializeExceptionChain [0x77A8BD2B+107]
+	RtlClearBits [0x77A8BCAF+191]
+
+login failed, Please try start the application again...
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+Login Successfull
+20-11-2023 13:37:02 : +919400710185 Start to send Message
+20-11-2023 13:37:02 : +919400710185 Trying 1/3 to Send Message
+20-11-2023 13:37:02 : +919400710185 Trying 2/3 to Send Message
+20-11-2023 13:37:02 : +919400710185 Trying 3/3 to Send Message
+20-11-2023 13:37:02 : +919400710185 Failed to Send Message
+20-11-2023 13:37:02 : +919400710185 Database Updated
+20-11-2023 13:39:01 : +918289905482 Start to send Message
+20-11-2023 13:39:01 : +918289905482 Trying 1/3 to Send Message
+20-11-2023 13:39:01 : +918289905482 Trying 2/3 to Send Message
+20-11-2023 13:39:01 : +918289905482 Trying 3/3 to Send Message
+20-11-2023 13:39:01 : +918289905482 Failed to Send Message
+20-11-2023 13:39:01 : +918289905482 Database Updated
+20-11-2023 13:40:36 : +918111940551 Start to send Message
+20-11-2023 13:40:36 : +918111940551 Trying 1/3 to Send Message
+20-11-2023 13:40:36 : +918111940551 Trying 2/3 to Send Message
+20-11-2023 13:40:36 : +918111940551 Trying 3/3 to Send Message
+20-11-2023 13:40:36 : +918111940551 Failed to Send Message
+20-11-2023 13:40:36 : +918111940551 Database Updated
+
+-----------------
+Total   : 3
+Success : 0
+Failed  : 3
+-----------------
+
+Application Closed

@@ -66,7 +66,7 @@ def update_status(user_id, status, current_datetime, phone):
             cursor = conn.cursor()
             cursor.execute('UPDATE WhatsappData SET Status = ?, LastMesgUpdateDate = ? WHERE UserID = ?', status, current_datetime, user_id)
             conn.commit()
-            print(f"{current_datetime} : +91{phone} Database Updated")
+            print(f"{current_datetime} : +91{phone} Database Updated as {status}")
     except pyodbc.Error as e:
         print(f"{current_datetime} : +91{phone} Error updating status: {e}")
 
@@ -118,7 +118,7 @@ def is_login():
     driver.maximize_window()
     try:
         WebDriverWait(driver, 60).until(
-        EC.presence_of_element_located((By.ID, 'side-profile-pic')))
+        EC.presence_of_element_located((By.CLASS_NAME, 'g9p5wyxn')))
         return True
     except Exception as e:
         print(f"Login failed: {e}")
@@ -135,6 +135,7 @@ if __name__ == "__main__":
     
     if is_login():
         print("Login Successfull")
+        sleep(30)
         if users:
             send_whatsapp_messages(users)
             driver.quit()
