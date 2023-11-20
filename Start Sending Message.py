@@ -45,15 +45,15 @@ def get_user_info():
     return users
 
 # Function to update the status column in the database
-def update_status(user_id, status, current_datetime):
+def update_status(user_id, status, current_datetime, phone):
     try:
         with pyodbc.connect(conn_str) as conn:
             cursor = conn.cursor()
             cursor.execute('UPDATE WhatsappData SET Status = ?, LastMesgUpdateDate = ? WHERE UserID = ?', status, current_datetime, user_id)
             conn.commit()
-            print(f"{current_datetime} : Database Updated")
+            print(f"{current_datetime} : +91{phone} Database Updated")
     except pyodbc.Error as e:
-        print(f"Error updating status: {e}")
+        print(f"{current_datetime} : +91{phone} Error updating status: {e}")
 
 # Function to Start Sending Whatsapp Message
 def send_whatsapp_messages(users):
@@ -106,11 +106,11 @@ def send_whatsapp_messages(users):
                     Flag = 1
                     sleep(5)
                     print(f"{current_datetime} : +91{phone} Message Send Successfully")
-                    update_status(user_id, 'Send', current_datetime)
+                    update_status(user_id, 'Send', current_datetime,phone)
                     break
             else:
                 print(f"{current_datetime} : +91{phone} Failed to Send Message")
-                update_status(user_id, 'Failed', current_datetime)
+                update_status(user_id, 'Failed', current_datetime, phone)
 
 
 if __name__ == "__main__":
