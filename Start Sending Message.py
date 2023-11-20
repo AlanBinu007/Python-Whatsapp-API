@@ -9,7 +9,6 @@ from selenium.webdriver.common.keys import Keys
 from datetime import datetime
 import pyodbc
 from time import sleep
-import time
 import sys
 
 
@@ -33,10 +32,11 @@ def get_user_info():
     try:
         with pyodbc.connect(conn_str) as conn:
             cursor = conn.cursor()
-            cursor.execute('SELECT UserID, UserName, PhoneNo, Status, Message FROM WhatsappData')
+            cursor.execute("SELECT UserID, PhoneNo, Message FROM WhatsappData WHERE Status <> 'Send'")
             rows = cursor.fetchall()
+            print(rows)
             for row in rows:
-                user_info = {'id': row.UserID, 'name': row.UserName, 'phone': row.PhoneNo, 'message': row.Message, 'status': row.Status}
+                user_info = {'id': row.UserID, 'phone': row.PhoneNo, 'message': row.Message}
                 users.append(user_info)
 
     except pyodbc.Error as e:
@@ -65,52 +65,39 @@ def send_whatsapp_messages(users):
      
     for user in users:
         user_id = user['id']
-        name = user['name']
         phone = user['phone']
-        status = user['status']
         message = user['message']
 
         custom_format = "%d-%m-%Y %H:%M:%S"
         current_datetime = datetime.now().strftime(custom_format)
+  
+        message = message
 
-        if status != 'Sent':  
-            message = message
-            # driver.get(link2)
-            # #Wait to 1 min to fully load the page
-            # time.sleep(60)
-            # actions = ActionChains(driver)
-            # actions.send_keys(Keys.ENTER)
-            # actions.perform()
-            # # print(f"{current_datetime} :+91{phone} Sending Message")
-            # #Press Enter and wait for 5 Second
-            # time.sleep(5)
-            max_attempts = 3
-            attempt_count = 1
+        max_attempts = 3
+        attempt_count = 1
 
-            while attempt_count <= max_attempts:
-                try:
-                    link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
-                    driver.get(link2)
-                    print(f"{current_datetime} : +91{phone} Start to send Message")
-                    print(f"{current_datetime} : +91{phone} Trying {attempt_count} out of {max_attempts} to Send Message")
-                    click_btn = WebDriverWait(driver, 30).until(
-                    EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
-                except Exception as e:
-                    print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
-                    # print(f"{current_datetime} : +91{phone} Failed to Send Message")
-                    # update_status(user_id, 'Failed', current_datetime)
-                    attempt_count += 1
-                else:
-                    sleep(2)
-                    click_btn.click()
-                    Flag = 1
-                    sleep(5)
-                    print(f"{current_datetime} : +91{phone} Message Send Successfully")
-                    update_status(user_id, 'Send', current_datetime,phone)
-                    break
+        while attempt_count <= max_attempts:
+            try:
+                link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
+                driver.get(link2)
+                print(f"{current_datetime} : +91{phone} Start to send Message")
+                print(f"{current_datetime} : +91{phone} Trying {attempt_count} out of {max_attempts} to Send Message")
+                click_btn = WebDriverWait(driver, 30).until(
+                EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
+            except Exception as e:
+                print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
+                attempt_count += 1
             else:
-                print(f"{current_datetime} : +91{phone} Failed to Send Message")
-                update_status(user_id, 'Failed', current_datetime, phone)
+                sleep(2)
+                click_btn.click()
+                Flag = 1
+                sleep(5)
+                print(f"{current_datetime} : +91{phone} Message Send Successfully")
+                update_status(user_id, 'Send', current_datetime,phone)
+                break
+        else:
+            print(f"{current_datetime} : +91{phone} Failed to Send Message")
+            update_status(user_id, 'Failed', current_datetime, phone)
 
 
 if __name__ == "__main__":
