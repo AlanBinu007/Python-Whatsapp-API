@@ -33,11 +33,14 @@ conn_str = (
 
 # Function to fetch user information from the database
 def get_user_info():
+
+    global total
+
     users = []
     try:
         with pyodbc.connect(conn_str) as conn:
             cursor = conn.cursor()
-            cursor.execute("SELECT UserID, PhoneNo, Message FROM WhatsappData WHERE Status <> 'Send'")
+            cursor.execute("SELECT UserID, PhoneNo, Message FROM WhatsappData WHERE Status <> 'Send' OR Status IS NULL")
             rows = cursor.fetchall()
             total = len(rows)
             for row in rows:
@@ -63,10 +66,13 @@ def update_status(user_id, status, current_datetime, phone):
 # Function to Start Sending Whatsapp Message
 def send_whatsapp_messages(users):
 
+    global success
+    global failed
+
     link = f'https://web.whatsapp.com/'
     driver.get(link)
     driver.maximize_window()
-    input("Press ENTER after login into Whatsapp Web and your chats are visiable.")
+    sleep(60)
      
     for user in users:
         user_id = user['id']
@@ -109,11 +115,9 @@ def send_whatsapp_messages(users):
 if __name__ == "__main__":
     # current_date = datetime.now().date().strftime("%d-%m-%Y")
     print()
-    print()
-    print()
-    print()
     print(f"Starting the Whatsapp Message Sending Application for {current_date}")
     print("---------------------------------------------------------------------")
+    print()
     users = get_user_info()
     if users:
         send_whatsapp_messages(users)
@@ -121,8 +125,8 @@ if __name__ == "__main__":
         print()
         print("-----------------")
         print(f"Total   : {total}")
-        print(f"Success : {total}")
-        print(f"Failed  : {total}")
+        print(f"Success : {success}")
+        print(f"Failed  : {failed}")
         print("-----------------")
         print()
         print("Application Closed")
