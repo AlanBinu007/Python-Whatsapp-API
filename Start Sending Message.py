@@ -11,10 +11,15 @@ import pyodbc
 from time import sleep
 import sys
 
+current_date = datetime.now().date().strftime("%d-%m-%Y")
 
-# file = open('Whatsapp Message Status.txt', 'a')
+# file_name = f"Whatsapp Message Status_{current_date}.txt"
+# file = open(file_name, 'a')
 # sys.stdout = file
 
+total = 0
+success = 0
+failed = 0
 
 driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
@@ -34,7 +39,7 @@ def get_user_info():
             cursor = conn.cursor()
             cursor.execute("SELECT UserID, PhoneNo, Message FROM WhatsappData WHERE Status <> 'Send'")
             rows = cursor.fetchall()
-            print(rows)
+            total = len(rows)
             for row in rows:
                 user_info = {'id': row.UserID, 'phone': row.PhoneNo, 'message': row.Message}
                 users.append(user_info)
@@ -90,18 +95,19 @@ def send_whatsapp_messages(users):
             else:
                 sleep(2)
                 click_btn.click()
-                Flag = 1
                 sleep(5)
                 print(f"{current_datetime} : +91{phone} Message Send Successfully")
                 update_status(user_id, 'Send', current_datetime,phone)
+                success +=1
                 break
         else:
             print(f"{current_datetime} : +91{phone} Failed to Send Message")
+            failed += 1
             update_status(user_id, 'Failed', current_datetime, phone)
 
 
 if __name__ == "__main__":
-    current_date = datetime.now().date().strftime("%d-%m-%Y")
+    # current_date = datetime.now().date().strftime("%d-%m-%Y")
     print()
     print()
     print()
@@ -112,6 +118,13 @@ if __name__ == "__main__":
     if users:
         send_whatsapp_messages(users)
         driver.quit()
+        print()
+        print("-----------------")
+        print(f"Total   : {total}")
+        print(f"Success : {total}")
+        print(f"Failed  : {total}")
+        print("-----------------")
+        print()
         print("Application Closed")
     else:
         print("No users found in the database.")
