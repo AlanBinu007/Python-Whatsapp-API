@@ -71,7 +71,7 @@ def send_whatsapp_messages(users):
             message = message
             link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
             print("--------------------------------------------------------------------------")
-            # print(f"{current_datetime} :+91{phone} Opening Chat")
+            print(f"{current_datetime} : Opening Chat for +91{phone}")
             driver.get(link2)
             #Wait to 1 min to fully load the page
             time.sleep(30)
@@ -79,9 +79,9 @@ def send_whatsapp_messages(users):
             actions.send_keys(Keys.ENTER)
             actions.perform()
             # print(f"{current_datetime} :+91{phone} Sending Message")
-            #Press Enter and wwait for 5 Second
+            #Press Enter and wait for 5 Second
             time.sleep(5)
-            print(f"{current_datetime} :+91{phone} Message Successfully sent to {phone}: {message}")
+            print(f"{current_datetime} : Message Successfully sent to {phone}")
             update_status(user_id, 'Send', current_datetime)
 
 
