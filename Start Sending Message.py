@@ -4,8 +4,6 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.keys import Keys
 from datetime import datetime
 import pyodbc
 from time import sleep
@@ -19,11 +17,11 @@ custom_folder = 'Whatsapp Message Status/'
 if not os.path.exists(custom_folder):
     os.makedirs(custom_folder)
 
-file_name = f"Whatsapp Message Status_{current_date}.txt"
+file_name = f"Status of {current_date}.txt"
 
 file_path = os.path.join(custom_folder, file_name)
 
-file = open(file_path, 'w')
+file = open(file_path, 'a')
 sys.stdout = file
 
 total = 0
@@ -100,11 +98,11 @@ def send_whatsapp_messages(users):
             try:
                 link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
                 driver.get(link2)
-                print(f"{current_datetime} : +91{phone} Trying {attempt_count} out of {max_attempts} to Send Message")
+                print(f"{current_datetime} : +91{phone} Trying {attempt_count}/{max_attempts} to Send Message")
                 click_btn = WebDriverWait(driver, 30).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
             except Exception as e:
-                print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
+                # print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
                 attempt_count += 1
             else:
                 sleep(2)
@@ -142,4 +140,5 @@ if __name__ == "__main__":
         print("No users found in the database.")
         print("Application Closed")
 
-    # file.close()
+    file.close()
+    sys.exit()
