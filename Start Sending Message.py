@@ -134,6 +134,7 @@ if __name__ == "__main__":
     users = get_user_info()
     
     if is_login():
+        print("Login Successfull")
         if users:
             send_whatsapp_messages(users)
             driver.quit()
@@ -151,6 +152,6 @@ if __name__ == "__main__":
     else:
         print("login failed, Please try start the application again...")
 
-        
+
     file.close()
     sys.exit()
