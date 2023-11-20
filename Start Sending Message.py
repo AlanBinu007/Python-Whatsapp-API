@@ -1,12 +1,17 @@
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
 from selenium.webdriver.common.action_chains import ActionChains
 from selenium.webdriver.common.keys import Keys
 from datetime import datetime
 import pyodbc
+from time import sleep
 import time
 import sys
+
 
 # file = open('Whatsapp Message Status.txt', 'a')
 # sys.stdout = file
@@ -46,17 +51,17 @@ def update_status(user_id, status, current_datetime):
             cursor = conn.cursor()
             cursor.execute('UPDATE WhatsappData SET Status = ?, LastMesgUpdateDate = ? WHERE UserID = ?', status, current_datetime, user_id)
             conn.commit()
-            print(f"{current_datetime} :Database Updated")
+            print(f"{current_datetime} : Database Updated")
     except pyodbc.Error as e:
         print(f"Error updating status: {e}")
 
-# Function to send WhatsApp messages using pywhatkit
+# Function to Start Sending Whatsapp Message
 def send_whatsapp_messages(users):
 
     link = f'https://web.whatsapp.com/'
     driver.get(link)
     driver.maximize_window()
-    time.sleep(90)
+    input("Press ENTER after login into Whatsapp Web and your chats are visiable.")
      
     for user in users:
         user_id = user['id']
@@ -65,24 +70,47 @@ def send_whatsapp_messages(users):
         status = user['status']
         message = user['message']
 
-        current_datetime = datetime.now()
+        custom_format = "%d-%m-%Y %H:%M:%S"
+        current_datetime = datetime.now().strftime(custom_format)
 
         if status != 'Sent':  
             message = message
-            link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
-            print("--------------------------------------------------------------------------")
-            print(f"{current_datetime} : Opening Chat for +91{phone}")
-            driver.get(link2)
-            #Wait to 1 min to fully load the page
-            time.sleep(30)
-            actions = ActionChains(driver)
-            actions.send_keys(Keys.ENTER)
-            actions.perform()
-            # print(f"{current_datetime} :+91{phone} Sending Message")
-            #Press Enter and wait for 5 Second
-            time.sleep(5)
-            print(f"{current_datetime} : Message Successfully sent to {phone}")
-            update_status(user_id, 'Send', current_datetime)
+            # driver.get(link2)
+            # #Wait to 1 min to fully load the page
+            # time.sleep(60)
+            # actions = ActionChains(driver)
+            # actions.send_keys(Keys.ENTER)
+            # actions.perform()
+            # # print(f"{current_datetime} :+91{phone} Sending Message")
+            # #Press Enter and wait for 5 Second
+            # time.sleep(5)
+            max_attempts = 3
+            attempt_count = 1
+
+            while attempt_count <= max_attempts:
+                try:
+                    link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
+                    driver.get(link2)
+                    print(f"{current_datetime} : +91{phone} Start to send Message")
+                    print(f"{current_datetime} : +91{phone} Trying {attempt_count} out of {max_attempts} to Send Message")
+                    click_btn = WebDriverWait(driver, 30).until(
+                    EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
+                except Exception as e:
+                    print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
+                    # print(f"{current_datetime} : +91{phone} Failed to Send Message")
+                    # update_status(user_id, 'Failed', current_datetime)
+                    attempt_count += 1
+                else:
+                    sleep(2)
+                    click_btn.click()
+                    Flag = 1
+                    sleep(5)
+                    print(f"{current_datetime} : +91{phone} Message Send Successfully")
+                    update_status(user_id, 'Send', current_datetime)
+                    break
+            else:
+                print(f"{current_datetime} : +91{phone} Failed to Send Message")
+                update_status(user_id, 'Failed', current_datetime)
 
 
 if __name__ == "__main__":
@@ -92,6 +120,7 @@ if __name__ == "__main__":
     print()
     print()
     print(f"Starting the Whatsapp Message Sending Application for {current_date}")
+    print("---------------------------------------------------------------------")
     users = get_user_info()
     if users:
         send_whatsapp_messages(users)
