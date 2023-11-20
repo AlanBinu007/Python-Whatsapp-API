@@ -1,0 +1,27 @@
+
+Starting the Whatsapp Message Sending Application for 20-11-2023
+---------------------------------------------------------------------
+
+20-11-2023 12:23:42 : +919400710185 Start to send Message
+20-11-2023 12:23:42 : +919400710185 Trying 1/3 to Send Message
+20-11-2023 12:23:42 : +919400710185 Trying 2/3 to Send Message
+20-11-2023 12:23:42 : +919400710185 Trying 3/3 to Send Message
+20-11-2023 12:23:42 : +919400710185 Failed to Send Message
+20-11-2023 12:23:42 : +919400710185 Database Updated
+20-11-2023 12:25:18 : +918289905482 Start to send Message
+20-11-2023 12:25:18 : +918289905482 Trying 1/3 to Send Message
+20-11-2023 12:25:18 : +918289905482 Trying 2/3 to Send Message
+20-11-2023 12:25:18 : +918289905482 Message Send Successfully
+20-11-2023 12:25:18 : +918289905482 Database Updated
+20-11-2023 12:26:10 : +918111940551 Start to send Message
+20-11-2023 12:26:10 : +918111940551 Trying 1/3 to Send Message
+20-11-2023 12:26:10 : +918111940551 Message Send Successfully
+20-11-2023 12:26:10 : +918111940551 Database Updated
+
+-----------------
+Total   : 3
+Success : 2
+Failed  : 1
+-----------------
+
+Application Closed

@@ -75,11 +75,6 @@ def send_whatsapp_messages(users):
 
     global success
     global failed
-
-    link = f'https://web.whatsapp.com/'
-    driver.get(link)
-    driver.maximize_window()
-    sleep(60)
      
     for user in users:
         user_id = user['id']
@@ -117,6 +112,18 @@ def send_whatsapp_messages(users):
             failed += 1
             update_status(user_id, 'Failed', current_datetime, phone)
 
+def is_login():
+    link = f'https://web.whatsapp.com/'
+    driver.get(link)
+    driver.maximize_window()
+    try:
+        WebDriverWait(driver, 60).until(
+        EC.presence_of_element_located((By.ID, 'side-profile-pic')))
+        return True
+    except Exception as e:
+        print(f"Login failed: {e}")
+        return False
+
 
 if __name__ == "__main__":
     # current_date = datetime.now().date().strftime("%d-%m-%Y")
@@ -125,20 +132,25 @@ if __name__ == "__main__":
     print("---------------------------------------------------------------------")
     print()
     users = get_user_info()
-    if users:
-        send_whatsapp_messages(users)
-        driver.quit()
-        print()
-        print("-----------------")
-        print(f"Total   : {total}")
-        print(f"Success : {success}")
-        print(f"Failed  : {failed}")
-        print("-----------------")
-        print()
-        print("Application Closed")
+    
+    if is_login():
+        if users:
+            send_whatsapp_messages(users)
+            driver.quit()
+            print()
+            print("-----------------")
+            print(f"Total   : {total}")
+            print(f"Success : {success}")
+            print(f"Failed  : {failed}")
+            print("-----------------")
+            print()
+            print("Application Closed")
+        else:
+            print("No users found in the database.")
+            print("Application Closed")
     else:
-        print("No users found in the database.")
-        print("Application Closed")
+        print("login failed, Please try start the application again...")
 
+        
     file.close()
     sys.exit()
