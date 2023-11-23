@@ -18,7 +18,6 @@ if not os.path.exists(custom_folder):
     os.makedirs(custom_folder)
 
 file_name = f"Status of {current_date}.txt"
-
 file_path = os.path.join(custom_folder, file_name)
 
 file = open(file_path, 'a')
@@ -32,7 +31,7 @@ driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
 
 
 # Microsoft Access Database Connection Parameters
-db_path = r"D:\PERSONAL\Alan\Dev Work\Python Whatsapp API\UserDetails.accdb"  # Replace with your database path
+db_path = r"D:\PERSONAL\Alan\Dev Work\Python Whatsapp API\TEST.mdb"  # Replace with your database path
 conn_str = (
     r'Driver={Microsoft Access Driver (*.mdb, *.accdb)};'
     f'DBQ={db_path};'
