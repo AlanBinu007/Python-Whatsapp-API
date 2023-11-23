@@ -75,7 +75,7 @@ def update_status(user_id, status, current_datetime, phone):
     cursor.close()
     conn.close()
 
-    
+
 # Function to Start Sending Whatsapp Message
 def send_whatsapp_messages(users):
 
@@ -124,7 +124,8 @@ def is_login():
     driver.maximize_window()
     try:
         WebDriverWait(driver, 60).until(
-        EC.presence_of_element_located((By.CLASS_NAME, 'g9p5wyxn')))
+        EC.presence_of_element_located((By.CLASS_NAME, 'g9p5wyxn')))  
+        # _19vUU class name for the whatsapp QR Code return false and then return true
         return True
     except Exception as e:
         print(f"Login failed: {e}")
