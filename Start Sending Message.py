@@ -57,6 +57,9 @@ def get_user_info():
     except pyodbc.Error as e:
         print(f"Error: {e}")
 
+    cursor.close()
+    conn.close()
+
     return users
 
 # Function to update the status column in the database
@@ -69,7 +72,10 @@ def update_status(user_id, status, current_datetime, phone):
             print(f"{current_datetime} : +91{phone} Database Updated as {status}")
     except pyodbc.Error as e:
         print(f"{current_datetime} : +91{phone} Error updating status: {e}")
+    cursor.close()
+    conn.close()
 
+    
 # Function to Start Sending Whatsapp Message
 def send_whatsapp_messages(users):
 
@@ -94,7 +100,7 @@ def send_whatsapp_messages(users):
                 link2 = f'https://web.whatsapp.com/send/?phone=+91{phone}&text={message}'
                 driver.get(link2)
                 print(f"{current_datetime} : +91{phone} Trying {attempt_count}/{max_attempts} to Send Message")
-                click_btn = WebDriverWait(driver, 30).until(
+                click_btn = WebDriverWait(driver, 60).until(
                 EC.element_to_be_clickable((By.CLASS_NAME, '_3XKXx')))
             except Exception as e:
                 # print(f"{current_datetime} : +91{phone} Try {attempt_count} failed")
@@ -135,7 +141,8 @@ if __name__ == "__main__":
     
     if is_login():
         print("Login Successfull")
-        sleep(30)
+        sleep(60)
+        driver.minimize_window()
         if users:
             send_whatsapp_messages(users)
             driver.quit()
@@ -151,7 +158,7 @@ if __name__ == "__main__":
             print("No users found in the database.")
             print("Application Closed")
     else:
-        print("login failed, Please try start the application again...")
+        print("Login failed, Please try to start the application again...")
 
 
     file.close()
